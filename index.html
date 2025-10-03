@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Styled NumViews Example</title>
+  <style>
+    body {
+      font-family: Calibri, Arial, sans-serif;
+      background: #f7f9fb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background: white;
+      padding: 20px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+    .label {
+      font-size: 20px;
+      color: #555;
+      margin-bottom: 15px;
+    }
+    .value {
+      font-size: 60pt;       /* BIG 60-point font */
+      font-weight: bold;     /* Bold */
+      text-align: center;    /* Centered */
+      color: #000;           /* Black text */
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="label">Total Views</div>
+    <div id="numViews" class="value">Loading...</div>
+  </div>
+
+  <script>
+    // Replace with your own item JSON endpoint
+    const url = "https://enterprise.COMPANY.EDU/portal/sharing/rest/content/items/ITEMID?f=json";
+
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("numViews").textContent = data.numViews.toLocaleString();
+      })
+      .catch(err => {
+        document.getElementById("numViews").textContent = "Error";
+        console.error(err);
+      });
+  </script>
+</body>
+</html>
