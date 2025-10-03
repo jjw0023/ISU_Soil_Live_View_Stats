@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>NumViews Debug Example</title>
+  <title>NumViews Example</title>
   <style>
     body {
       font-family: Calibri, Arial, sans-serif;
@@ -26,9 +26,9 @@
       margin-bottom: 15px;
     }
     .value {
-      font-size: 60px;       /* Big font size */
-      font-weight: bold;     /* Bold text */
-      text-align: center;    /* Centered */
+      font-size: 60px;
+      font-weight: bold;
+      text-align: center;
       color: #000;
     }
   </style>
@@ -40,8 +40,17 @@
   </div>
 
   <script>
-    // 🔹 Replace ITEMID with your real item ID
-    const url = "https://enterprise.rsgis.msu.edu/portal/sharing/rest/content/items/e12d381ed3b842fcaee125d49cd92606?f=json";
+    // 🔹 Item ID
+    const itemId = "e12d381ed3b842fcaee125d49cd92606";
+
+    // 🔹 OPTIONAL: If item is private, paste a token here
+    const token = ""; // <-- add token string here if required
+
+    // Build URL
+    let url = `https://enterprise.rsgis.msu.edu/portal/sharing/rest/content/items/${itemId}?f=json`;
+    if (token) {
+      url += `&token=${token}`;
+    }
 
     console.log("Fetching data from:", url);
 
@@ -65,8 +74,4 @@
       .catch(err => {
         document.getElementById("numViews").textContent = "Error";
         console.error("Fetch error details:", err);
-      });
-  </script>
-</body>
-</html>
-
+      }
