@@ -2,76 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>NumViews Example</title>
+  <title>NumViews</title>
   <style>
-    body {
-      font-family: Calibri, Arial, sans-serif;
-      background: #f7f9fb;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .card {
-      background: white;
-      padding: 20px 40px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      text-align: center;
-    }
-    .label {
-      font-size: 20px;
-      color: #555;
-      margin-bottom: 15px;
-    }
-    .value {
-      font-size: 60px;
+    #numViews {
+      font-size: 60pt;
       font-weight: bold;
       text-align: center;
-      color: #000;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="label">Total Views</div>
-    <div id="numViews" class="value">Loading...</div>
-  </div>
+  <div id="numViews">Loading...</div>
 
   <script>
-    // 🔹 Item ID
-    const itemId = "e12d381ed3b842fcaee125d49cd92606";
-
-    // 🔹 OPTIONAL: If item is private, paste a token here
-    const token = ""; // <-- add token string here if required
-
-    // Build URL
-    let url = `https://enterprise.rsgis.msu.edu/portal/sharing/rest/content/items/${itemId}?f=json`;
-    if (token) {
-      url += `&token=${token}`;
-    }
-
-    console.log("Fetching data from:", url);
+    const url = "https://enterprise.rsgis.msu.edu/portal/sharing/rest/content/items/e12d381ed3b842fcaee125d49cd92606?f=json";
 
     fetch(url)
-      .then(response => {
-        console.log("HTTP Response Status:", response.status);
-        if (!response.ok) {
-          throw new Error("HTTP error! Status: " + response.status);
-        }
-        return response.json();
-      })
+      .then(r => r.json())
       .then(data => {
-        console.log("Full JSON response:", data);
-
         if (data.numViews !== undefined) {
-          document.getElementById("numViews").textContent = data.numViews.toLocaleString();
+          document.getElementById("numViews").textContent = data.numViews;
         } else {
           document.getElementById("numViews").textContent = "numViews not found";
         }
       })
       .catch(err => {
         document.getElementById("numViews").textContent = "Error";
-        console.error("Fetch error details:", err);
-      }
+        console.error(err);
+      });
+  </script>
+</body>
+</html>
